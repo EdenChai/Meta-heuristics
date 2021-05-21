@@ -7,7 +7,7 @@ from mealpy.swarm_based.PSO import BasePSO
 from mealpy.swarm_based.WOA import BaseWOA
 import Functions
 
-function = Functions.Rosenbrock2D       # This objective function come from "opfunu" library.
+function = Functions.Rosenbrock2D       # This objective function come from "Function" class that we creates
 verbose = True                          # Print out the training results
 epoch = 10                              # Number of iterations / epochs
 populationSize = 10                     # Populations size (Number of individuals / Number of solutions)
@@ -15,35 +15,35 @@ problemSize = 2                         # Number of dimensions
 lowerBound = [-10]                      # The lower bound of the function
 upperBound = [10]                       # The upper bound of the function
 
-model = BaseHC(function, lowerBound, upperBound, verbose, epoch, populationSize, problem_size = problemSize)
-best_pos, best_fit, list_loss = model.train()
-
 """" Stage 1-b """
+
+model = BaseHC(function, lowerBound, upperBound, verbose, epoch, populationSize, problem_size = problemSize)
 
 # Run HC first time
 print("Run HC first time on 2D Rosenbrock")
-print(model.solution[1])
-print(model.loss_train)
-
-# Run HC second time
-print("\nRun HC second time on 2D Rosenbrock")
 model.train()
 print(model.solution[1])
 
-##################################################################
+# Run HC second time
+print("Run HC second time on 2D Rosenbrock")
+model.train()
+print(model.solution[1])
+
 
 """" Stage 1-c """
 
-# Run GWO first time
-print("\nRun GWO first time on 2D Rosenbrock")
 model = BaseGWO(function, lowerBound, upperBound, verbose, epoch, populationSize, problem_size = problemSize)
+
+# Run GWO first time
+print("Run GWO first time on 2D Rosenbrock")
 model.train()
 print(model.solution[1])
 
 # Run GWO second time
-print("\nRun GWO second time on 2D Rosenbrock")
+print("Run GWO second time on 2D Rosenbrock")
 model.train()
 print(model.solution[1])
+
 
 #################################################################
 
@@ -51,7 +51,7 @@ print(model.solution[1])
 
 # Run both HC and GWO on 10D problem 50 times with different bounds
 
-function = Functions.Rosenbrock10D      # This objective function come from "opfunu" library.
+function = Functions.Rosenbrock10D      # This objective function come from "Function" class that we creates
 verbose = True                          # Print out the training results
 epoch = 50                              # Number of iterations / epochs
 populationSize = 10                     # Populations size (Number of individuals / Number of solutions)
@@ -60,13 +60,13 @@ lowerBound = [-2.048]                   # The lower bound of the function
 upperBound = [2.048]                    # The upper bound of the function
 
 # Run HC
-print("\nRun HC on 10D Rosenbrock")
+print("Run HC on 10D Rosenbrock")
 model = BaseHC(function, lowerBound, upperBound, verbose, epoch, populationSize, problem_size = problemSize)
 model.train()
 print(model.solution[1])
 
 # Run GWO
-print("\nRun GWO on 10D Rosenbrock")
+print("Run GWO on 10D Rosenbrock")
 model = BaseGWO(function, lowerBound, upperBound, verbose, epoch, populationSize, problem_size = problemSize)
 model.train()
 print(model.solution[1])
@@ -76,14 +76,11 @@ print(model.solution[1])
 
 """" Stage 2-b """
 
-def runAlgorithms(func, lower, upper):
-    function = func
+def runAlgorithms(funcion, lowerBound, upperBound):
     verbose = True
-    epoch = 10
+    epoch = 50
     populationSize = 10
     problemSize = 10
-    lowerBound = lower
-    upperBound = upper
     
     # Run HC
     model1 = BaseHC(function, lowerBound, upperBound, verbose, epoch, populationSize, problem_size = problemSize)
@@ -120,14 +117,14 @@ def runAlgorithms(func, lower, upper):
     model7.train()
     print(model7.solution[1])
 
-# runAlgorithms( Functions.Sphere, -100, 100 )
-# runAlgorithms( Functions.Rosenbrock10D, -2.048, 2.048 )
-# runAlgorithms( Functions.Ackley, -32.768, 32.76 )
-# runAlgorithms( Functions.Griewank, -600, 600 )
-# runAlgorithms( Functions.Weierstrass, -0.5, 0.5 )
-# runAlgorithms( Functions.Rastrigin, -5.12, 5.12 )
-# runAlgorithms( Functions.NCRastrigin, -5.12, 5.12 )
-# runAlgorithms( Functions.Schwefel, -500, 500 )
+runAlgorithms( Functions.Sphere, -100, 100 )
+runAlgorithms( Functions.Rosenbrock10D, -2.048, 2.048 )
+runAlgorithms( Functions.Ackley, -32.768, 32.76 )
+runAlgorithms( Functions.Griewank, -600, 600 )
+runAlgorithms( Functions.Weierstrass, -0.5, 0.5 )
+runAlgorithms( Functions.Rastrigin, -5.12, 5.12 )
+runAlgorithms( Functions.NCRastrigin, -5.12, 5.12 )
+runAlgorithms( Functions.Schwefel, -500, 500 )
 
 # b = 10;
 # f = lambda x,y: (x-1)**2 + b*(y-x**2)**2;
